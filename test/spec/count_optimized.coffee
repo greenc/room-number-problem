@@ -3,6 +3,18 @@ describe 'countOptimized', ->
     it 'should exist', ->
         expect(countOptimized).to.be.a 'function'
 
+    it 'should throw an error if arguments are missing', ->
+        expect(-> countReference()).to.throw 'missing arguments'
+
+    it 'should throw an error if arguments aren\'t numbers', ->
+        expect(-> countReference(['nope'], 'nope')).to.throw 'arguments must be numbers'
+
+    it 'should throw an error if arguments aren\'t whole integers', ->
+        expect(-> countReference(0.1, 543.21)).to.throw 'arguments must be whole numbers'
+
+    it 'should throw an error if arguments aren\'t positive integers or zero', ->
+        expect(-> countReference(-42, -69)).to.throw 'arguments must be positive or zero'
+
     it 'should return the correct result for range 0-1', ->
         expect(countOptimized 0, 1).to.eql [1, 1, 0, 0, 0, 0, 0, 0, 0, 0]
 

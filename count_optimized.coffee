@@ -6,6 +6,12 @@ root = exports ? this
 # range (start/end inclusive)
 root.countOptimized = (start, end) ->
 
+    # Sanity check
+    throw Error 'missing arguments' if !start? or !end?
+    throw Error 'arguments must be numbers' if typeof start isnt 'number' or typeof end isnt 'number'
+    throw Error 'arguments must be whole numbers' if start % 1 isnt 0 or end % 1 isnt 0
+    throw Error 'arguments must be positive or zero' if start < 0 or end < 0
+
     # Vars
     power = nines = prefix = 0
     tally = (0 for [0..9])

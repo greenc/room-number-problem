@@ -34,7 +34,6 @@ module.exports = function (grunt) {
       reference: {
         src: ['.tmp/testrunner.html'],
         options: {
-          log: true,
           run: true,
           mocha: {
             grep: 'countReference'
@@ -44,11 +43,16 @@ module.exports = function (grunt) {
       optimized: {
         src: ['.tmp/testrunner.html'],
         options: {
-          log: true,
           run: true,
           mocha: {
             grep: 'countOptimized'
           }
+        }
+      },
+      all: {
+        src: ['.tmp/testrunner.html'],
+        options: {
+          run: true
         }
       }
     },
@@ -94,8 +98,7 @@ module.exports = function (grunt) {
   // Default task, compiles coffee and runs all unit tests
   grunt.registerTask('default', [
     'prepare',
-    'mocha:reference',
-    'mocha:optimized'
+    'mocha:all',
   ]);
 
 };

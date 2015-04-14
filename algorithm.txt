@@ -1,0 +1,32 @@
+integer First,Last  // First and last number in the range
+integer Number      // Current number in the loop
+integer Power       // Power is the n in 10^n in the formulas
+integer Nines       // Nines is the resut of 10^n - 1, 10^5 - 1 = 99999
+integer Prefix      // First digits in a number. For 14,200, prefix is 142
+array 0..9 Digits   // Will hold the count for all the digits
+
+FOR Number = First TO Last
+    CALL TallyDigitsForOneNumber WITH Number,1              // Tally the count of each digit
+                                                            // in the number, increment by 1
+
+    // Start of optimization. Comments are for Number = 1,000 and Last = 8,000
+    Power = Zeros at the end of number                      // For 1,000, Power = 3
+    IF Power > 0                                            // The number ends in 0 00 000 etc
+        Nines = 10^Power-1                                  // Nines = 10^3 - 1 = 1000 - 1 = 999
+        IF Number+Nines <= Last                             // If 1,000+999 < 8,000, add a full set
+            Digits[0-9] += Power*10^(Power-1)               // Add 3*10^(3-1) = 300 to digits 0 to 9
+            Digits[0]   -= -Power                           // Adjust digit 0 (leading zeros formula)
+            Prefix = First digits of Number                 // For 1000, prefix is 1
+            CALL TallyDigitsForOneNumber WITH Prefix,Nines  // Tally the count of each digit in prefix,
+                                                            // increment by 999
+            Number += Nines                                 // Increment the loop counter 999 cycles
+        ENDIF
+    ENDIF
+    // End of optimization
+ENDFOR
+
+SUBROUTINE TallyDigitsForOneNumber PARAMS Number,Count
+    REPEAT
+        Digits [ Number % 10 ] += Count
+        Number = Number / 10
+    UNTIL Number = 0

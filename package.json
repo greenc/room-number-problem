@@ -1,0 +1,19 @@
+{
+  "name": "room-number-problem",
+  "version": "0.0.1",
+  "description": "An optimized solution to the classic programming question of working out how many of each number of digits a hotel manager must order to be able to number each hotel room door correctly. It assumes a continuous range of numbers without leading zeros.",
+  "main": "algorithm.coffee",
+  "author": "Chris Green",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^2.2.0",
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-coffee": "^0.13.0",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-mocha": "^0.4.10",
+    "load-grunt-tasks": "^0.4.0",
+    "mocha": "^2.2.4",
+    "time-grunt": "^0.4.0"
+  }
+}

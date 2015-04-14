@@ -15,7 +15,7 @@ module.exports = function (grunt) {
 
     // Empties folders to start fresh
     clean: {
-      test: '.tmp',
+      tmp: '.tmp',
     },
 
     // Copies files to relevant folders
@@ -87,15 +87,16 @@ module.exports = function (grunt) {
     'mocha:optimized'
   ]);
 
-  // Only runs
+  // Compiles coffee and moves test files into .tmp/
   grunt.registerTask('prepare', [
-    'clean:test',
+    'clean:tmp',
     'copy:test',
     'coffee:compile',
-    'coffee:test'
+    'coffee:test',
+    'clean:tmp'
   ]);
 
-  // Default task, compiles coffee and runs all unit tests
+  // Default task, runs all unit tests
   grunt.registerTask('default', [
     'prepare',
     'mocha:all',

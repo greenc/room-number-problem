@@ -31,12 +31,12 @@ module.exports = function (grunt) {
 
     // Mocha testing framework configuration options
     mocha: {
-      reference: {
+      naive: {
         src: ['.tmp/testrunner.html'],
         options: {
           run: true,
           mocha: {
-            grep: 'countReference'
+            grep: 'naive'
           }
         }
       },
@@ -45,7 +45,7 @@ module.exports = function (grunt) {
         options: {
           run: true,
           mocha: {
-            grep: 'countOptimized'
+            grep: 'optimized'
           }
         }
       },
@@ -61,28 +61,26 @@ module.exports = function (grunt) {
     coffee: {
       compile: {
         files: {
-          '.tmp/count_reference.js': 'count_reference.coffee',
-          '.tmp/count_optimized.js': 'count_optimized.coffee'
+          '.tmp/rooms.js': 'rooms.coffee'
         }
       },
       test: {
         files: {
-          '.tmp/spec/count_reference.js': 'test/spec/count_reference.coffee',
-          '.tmp/spec/count_optimized.js': 'test/spec/count_optimized.coffee'
+          '.tmp/spec/rooms.js': 'test/spec/rooms.coffee'
         }
       }
     }
 
   });
 
-  // Only runs tests for reference method
-  grunt.registerTask('ref', [
+  // Only runs tests for naive method
+  grunt.registerTask('naive', [
     'prepare',
-    'mocha:reference'
+    'mocha:naive'
   ]);
 
   // Only runs tests for optimized method
-  grunt.registerTask('opt', [
+  grunt.registerTask('optimized', [
     'prepare',
     'mocha:optimized'
   ]);
@@ -92,14 +90,14 @@ module.exports = function (grunt) {
     'clean:tmp',
     'copy:test',
     'coffee:compile',
-    'coffee:test',
-    'clean:tmp'
+    'coffee:test'
   ]);
 
   // Default task, runs all unit tests
   grunt.registerTask('default', [
     'prepare',
     'mocha:all',
+    'clean:tmp'
   ]);
 
 };

@@ -95,12 +95,12 @@ do (name = 'rooms', factory = ->
     methods # Return
 ) ->
     # Export for correct environment
-    if typeof module isnt 'undefined'
-        # CommonJS/Node
-        module.exports = factory()
-    else if typeof define is 'function' and typeof define.amd is 'object'
+    if typeof define is 'function' and typeof define.amd is 'object'
         # AMD/RequireJS
         define factory
+    else if typeof module isnt 'undefined' and typeof exports is 'object'
+        # CommonJS/Node
+        module.exports = factory()
     else
         # Browser global
         this[name] = factory()

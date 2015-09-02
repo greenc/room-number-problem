@@ -97,8 +97,8 @@ do (name = 'rooms', factory = ->
     # Export for correct environment
     if typeof define is 'function' and typeof define.amd is 'object'
         # AMD/RequireJS
-        define factory
-    else if typeof module isnt 'undefined' and typeof exports is 'object'
+        define [], factory
+    else if typeof module is 'object' and module.exports
         # CommonJS/Node
         module.exports = factory()
     else
